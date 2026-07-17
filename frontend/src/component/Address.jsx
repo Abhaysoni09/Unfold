@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Plus, Pencil, Trash2, Check, Home, Briefcase, MapPin } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 const emptyForm = {
   fullname: "",
@@ -29,7 +30,7 @@ const Address = () => {
   const fetchAddresses = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/api/address`, { withCredentials: true });
+      const res = await axios.get(`${API_URL}/address`, { withCredentials: true });
       setAddresses(res.data.addresses || []);
     } catch (err) {
       console.log(err.response?.data || err);
@@ -92,9 +93,9 @@ const Address = () => {
     try {
       setSaving(true);
       if (editingId) {
-        await axios.put(`http://localhost:3000/api/address/${editingId}`, form, { withCredentials: true });
+        await axios.put(`${API_URL}/address/${editingId}`, form, { withCredentials: true });
       } else {
-        await axios.post(`http://localhost:3000/api/address`, form, { withCredentials: true });
+        await axios.post(`${API_URL}/address`, form, { withCredentials: true });
       }
       closeForm();
       fetchAddresses();
@@ -109,7 +110,7 @@ const Address = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this address?")) return;
     try {
-      await axios.delete(`/address/${id}`, { withCredentials: true });
+      await axios.delete(`${API_URL}/address/${id}`, { withCredentials: true });
       setAddresses((prev) => prev.filter((a) => a._id !== id));
     } catch (err) {
       console.log(err.response?.data || err);
@@ -118,7 +119,7 @@ const Address = () => {
 
   const setDefault = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/api/address/${id}/default`, {}, { withCredentials: true });
+      await axios.patch(`${API_URL}/address/${id}/default`, {}, { withCredentials: true });
       fetchAddresses();
     } catch (err) {
       console.log(err.response?.data || err);

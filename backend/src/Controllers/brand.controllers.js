@@ -3,6 +3,7 @@ const uploadfile = require("../Services/cloud.services")
 
 async function createbrand(req,res){
     const {name,description,status} = req.body
+    const id = req.user.id
     const result = await uploadfile(req.file.buffer)
     if(!name||!description){
         return res.status(400).json({
@@ -13,7 +14,8 @@ async function createbrand(req,res){
         name,
         logo:result.url,
         description,
-        status
+        status,
+        sellerId:id
     })
     res.status(200).json({
         message:"Brand created successfully",
@@ -30,7 +32,10 @@ async function deletebrand(req,res){
 }
 
 async function allbrands(req,res){
-    const brands = await brandmodel.find()
+    const {id} = req.user
+    const brands = await brandmodel.find({
+        sellerId:id
+    })
     res.status(200).json({
         message:"Fetch all brands",
         brands

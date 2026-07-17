@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Search, Plus, Pencil, Trash2 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 
 function Products() {
@@ -15,7 +16,7 @@ function Products() {
   async function fetchProducts() {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/api/products`, {
+      const res = await axios.get(`${API_URL}/products`, {
         withCredentials: true,
       });
       setProducts(res.data.products || []);
@@ -36,7 +37,7 @@ function Products() {
   async function handleDelete(id) {
     if (!window.confirm("Delete this product? This cannot be undone.")) return;
     try {
-      await axios.delete(`http://localhost:3000/api/products/${id}`, {
+      await axios.delete(`${API_URL}/products/${id}`, {
         withCredentials: true,
       });
       setProducts((prev) => prev.filter((p) => p._id !== id));

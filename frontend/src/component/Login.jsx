@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/Authcontext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../config/api";
 
 const ROLE_REDIRECTS = {
   user: "/",
@@ -21,7 +22,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${API_URL}/auth/login`,
         {
           identity,
           password,

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Check, MapPin, Plus, Home, Briefcase } from "lucide-react";
 import axios from "axios";
-
+import { API_URL } from "../config/api";
 
 const emptyForm = {
   fullname: "",
@@ -38,8 +38,8 @@ const Checkout = () => {
     try {
       setLoading(true);
       const [cartRes, addressRes] = await Promise.all([
-        axios.get(`http://localhost:3000/api/cart`, { withCredentials: true }),
-        axios.get(`http://localhost:3000/api/address`, { withCredentials: true }),
+        axios.get(`${API_URL}/cart`, { withCredentials: true }),
+        axios.get(`${API_URL}/address`, { withCredentials: true }),
       ]);
 
       setCart(cartRes.data.cart);
@@ -77,7 +77,7 @@ const Checkout = () => {
 
     try {
       setSavingAddress(true);
-      const res = await axios.post(`http://localhost:3000/api/address`, form, { withCredentials: true });
+      const res = await axios.post(`${API_URL}/address`, form, { withCredentials: true });
       setAddresses((prev) => [res.data.address, ...prev]);
       setSelectedAddressId(res.data.address._id);
       setShowAddForm(false);
@@ -100,11 +100,10 @@ const Checkout = () => {
     try {
       setPlacing(true);
       const res = await axios.post(
-        `http://localhost:3000/api/order`,
+        `${API_URL}/order`,
         { addressId: selectedAddressId, paymentMethod },
         { withCredentials: true }
       );
-      console.log(res.data.order._id)
       navigate(`/confirmorder/${res.data.order._id}`);
     } catch (err) {
       console.log(err.response?.data || err);

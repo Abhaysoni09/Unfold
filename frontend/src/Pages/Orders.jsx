@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Package, ChevronDown, ChevronUp, User, MapPin } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 
 const STATUS_OPTIONS = ["Pending", "Confirmed", "Packed", "Shipped", "Delivered", "Cancelled"];
@@ -24,7 +25,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/api/seller/orders`, {
+      const res = await axios.get(`${API_URL}/seller/orders`, {
         withCredentials: true,
       });
       setOrders(res.data.orders || []);
@@ -48,7 +49,7 @@ const Orders = () => {
     try {
       setUpdatingId(orderId);
       await axios.patch(
-        `http://localhost:3000/api/seller/orders/${orderId}/status`,
+        `${API_URL}/seller/orders/${orderId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );

@@ -82,7 +82,20 @@ async function allproducts(req,res){
 
 async function getallproduct(req,res){
     try {
-        const products = await productmodel.find().sort({ createdAt: -1 });
+        const products = await productmodel.find().sort({ createdAt: -1 })
+.limit(10);;
+        res.status(200).json({
+            message:"fetch all products",
+            products
+        })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function getallproductsforproduct(req,res){
+    try {
+        const products = await productmodel.find().sort({ createdAt: -1 })
         res.status(200).json({
             message:"fetch all products",
             products
@@ -156,4 +169,4 @@ async function updateproduct(req,res){
         })
 }
 
-module.exports = {createproduct,allproducts,deleteproduct,getproduct,updateproduct,getallproduct}
+module.exports = {createproduct,allproducts,deleteproduct,getproduct,updateproduct,getallproduct,getallproductsforproduct}

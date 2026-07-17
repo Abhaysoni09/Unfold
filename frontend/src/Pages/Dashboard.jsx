@@ -9,6 +9,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 
 const statusStyles = {
@@ -31,7 +32,7 @@ const Dashboard = () => {
     const fetchDashboard = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:3000/api/seller/dashboard`, {
+        const res = await axios.get(`${API_URL}/seller/dashboard`, {
           withCredentials: true,
         });
         setStats(res.data.stats);

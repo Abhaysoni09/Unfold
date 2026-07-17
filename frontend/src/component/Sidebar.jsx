@@ -3,16 +3,12 @@ import axios from "axios"
 import {
   LayoutDashboard,
   ShoppingBag,
-  FolderTree,
   Package,
   Users,
-  Star,
-  BarChart3,
   TicketPercent,
-  Settings,
   LogOut,
 } from "lucide-react";
-
+import { API_URL } from "../config/api";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/Authcontext";
 const menuItems = [
@@ -47,7 +43,7 @@ const Sidebar = () => {
     const Navigate = useNavigate()
     const logout =async ()=>{
         try{
-            await axios.post("http://localhost:3000/api/auth/logout",{},
+            await axios.post(`${API_URL}/auth/logout`,{},
             {
                 withCredentials: true,
             }

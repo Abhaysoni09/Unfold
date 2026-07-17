@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 
 const Cart = () => {
@@ -13,7 +14,7 @@ const Cart = () => {
   const fetchCart = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/api/cart`, { withCredentials: true });
+      const res = await axios.get(`${API_URL}/cart`, { withCredentials: true });
       setCart(res.data.cart);
     } catch (err) {
       console.log(err.response?.data || err);
@@ -32,7 +33,7 @@ const Cart = () => {
     try {
       setUpdatingId(itemId);
       const res = await axios.put(
-        `http://localhost:3000/api/cart/${itemId}`,
+        `${API_URL}/cart/${itemId}`,
         { quantity: newQuantity },
         { withCredentials: true }
       );

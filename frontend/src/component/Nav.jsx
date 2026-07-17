@@ -17,30 +17,27 @@ const Nav = () => {
       UNFOLD
     </h1>
     <nav className="hidden md:flex items-center gap-8 text-[#235347] font-medium">
+      <Link to="/">
       <a
-        href="/"
         className="hover:text-[#163832] transition"
       >
         Home
       </a>
+      </Link>
+      <Link to="/products">
       <a
-        href="/products"
         className="hover:text-[#163832] transition"
       >
         Products
       </a>
+      </Link>
+      <Link to="/about">
       <a
-        href="/categories"
-        className="hover:text-[#163832] transition"
-      >
-        Categories
-      </a>
-      <a
-        href="/about"
         className="hover:text-[#163832] transition"
       >
         About
       </a>
+      </Link>
     </nav>
     <div className="flex gap-3">
       <Link

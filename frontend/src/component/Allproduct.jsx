@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 const Allproduct = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const Allproduct = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:3000/api/getproducts`);
+        const res = await axios.get(`${API_URL}/getallproducts`);
         setProducts(res.data.products || []);
       } catch (err) {
         console.log(err.response?.data || err);

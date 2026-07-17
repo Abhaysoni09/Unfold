@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 
 const Updateproducts = () => {
@@ -31,10 +32,10 @@ const Updateproducts = () => {
       try {
         setLoading(true);
         const [productRes, brandRes] = await Promise.all([
-          axios.get(`http://localhost:3000/api/products/${id}`,{
+          axios.get(`${API_URL}/products/${id}`,{
             withCredentials:true
           }),
-          axios.get(`http://localhost:3000/api/brands`,{
+          axios.get(`${API_URL}/brands`,{
             withCredentials:true
           })
         ]);
@@ -88,7 +89,7 @@ const Updateproducts = () => {
 
     try {
       setSaving(true);
-      await axios.put(`http://localhost:3000/api/products/${id}`, payload,{
+      await axios.put(`${API_URL}/products/${id}`, payload,{
             withCredentials:true
           });
       alert("Product Edit successful")

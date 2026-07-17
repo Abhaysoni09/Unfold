@@ -2,6 +2,7 @@ import { Upload, X } from "lucide-react";
 import { useRef, useState ,useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom"
+import { API_URL } from "../config/api";
 
 const Createproduct = () => {
   const fileInputRef = useRef(null);
@@ -72,7 +73,7 @@ const Createproduct = () => {
     try {
       setLoading(true);
        await axios.post(
-        "http://localhost:3000/api/createproducts",
+        `${API_URL}/createproducts`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" }, 
       
@@ -80,7 +81,7 @@ const Createproduct = () => {
       }
       );
       alert("Product Created Successfully")
-      navigate("/admin/products")
+      navigate("/seller/products")
       setForm({
         title: "", 
         description: "", 
@@ -105,10 +106,11 @@ const Createproduct = () => {
   const fetchOptions = async () => {
     try {
       const brands = await Promise.all([
-        axios.get("http://localhost:3000/api/brands"),
+        axios.get(`${API_URL}/brands`,{
+          withCredentials:true
+        }),
       ]);
-      console.log(brands[0].data.brands);
-      setbrand(brands[0].data.brands);
+      setbrand(brands[0].data.brands || []);
     } catch (err) {
       console.log(err);
     }

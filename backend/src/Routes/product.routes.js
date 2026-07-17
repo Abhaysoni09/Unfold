@@ -16,6 +16,7 @@ router.post("/createproducts",authRole("seller"), upload.array("images",14),prod
 router.get("/products",authRole("seller"),productcontrollers.allproducts)
 router.delete("/products/:id",authRole("seller"),productcontrollers.deleteproduct)
 router.get("/getproducts",productcontrollers.getallproduct)
+router.get("/getallproducts",productcontrollers.getallproductsforproduct)
 router.get("/products/:id",productcontrollers.getproduct)
 router.put("/products/:id",authRole("seller"),productcontrollers.updateproduct)
 
@@ -34,9 +35,9 @@ router.delete("/cart/:id",authRole("user"),cartcontrollers.removeitem)
 
 router.get("/address",authRole("user"),addresscontroller.getAddresses)
 router.post("/address",authRole("user"),addresscontroller.addAddress)
-router.delete("/address",authRole("user"),addresscontroller.deleteAddress)
-router.put("/address",authRole("user"),addresscontroller.updateAddress)
-router.patch("/address",authRole("user"),addresscontroller.setDefaultAddress)
+router.delete("/address/:id",authRole("user"),addresscontroller.deleteAddress)
+router.put("/address/:id",authRole("user"),addresscontroller.updateAddress)
+router.patch("/address/:id/default",authRole("user"),addresscontroller.setDefaultAddress)
 
 
 router.post("/order",authRole("user"),ordercontroller.placeOrder)

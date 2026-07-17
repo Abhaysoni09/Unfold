@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { useAuth } from "../context/Authcontext";
-
+import { API_URL } from "../config/api";
 
 const Profile = () => {
   const { user, setUser} = useAuth();
@@ -60,7 +60,7 @@ const Profile = () => {
 
     try {
       setSaving(true);
-      const res = await axios.put(`http://localhost:3000/api/profile`, form, {
+      const res = await axios.put(`${API_URL}/auth/profile`, form, {
         withCredentials: true,
       });
       setUser(res.data.user);
@@ -87,7 +87,7 @@ const Profile = () => {
 
   const logout =async ()=>{
         try{
-            await axios.post("http://localhost:3000/api/auth/logout",{},
+            await axios.post(`${API_URL}/auth/logout`,{},
             {
                 withCredentials: true,
             }

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 
 async function register(req,res){
-    const {username,email,phone,password} = req.body
+    const {username,email,phone,password,role} = req.body
     const userexist = await usermodel.findOne({
         $or:[
             {username},
@@ -20,7 +20,8 @@ async function register(req,res){
         username,
         email,
         phone,
-        password:hash
+        password:hash,
+        role
     })
     const token = jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{expiresIn:"1d"})
     res.cookie("token", token, {
@@ -30,7 +31,8 @@ async function register(req,res){
     maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(201).json({
-        message:"Register Successfully"
+        message:"Register Successfully",
+        user
     })
 }
 
@@ -93,7 +95,36 @@ function logout(req,res){
     }
 }
 
+async function updateprofile(req,res){
+     const userId = req.user.id;
+    const { username, email, phone } = req.body;
+    const existingUser = await usermodel.findOne({
+      email,
+      _id: { $ne: userId },
+    });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "Email already exists",
+      });
+    }
+    const user = await usermodel.findByIdAndUpdate(
+      userId,
+      {
+        username,
+        email,
+        phone,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    ).select("-password");
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user,
+    });
+}
 
 
 
-module.exports = {register,login,me,logout}
+module.exports = {register,login,me,logout,updateprofile}

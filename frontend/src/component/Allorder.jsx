@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Package, ChevronDown, ChevronUp } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 const statusStyles = {
   Pending: "bg-yellow-100 text-yellow-700",
@@ -22,7 +23,7 @@ const Allorder = () => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:3000/api/order`, {
+        const res = await axios.get(`${API_URL}/myorder`, {
           withCredentials: true,
         });
         setOrders(res.data.orders || []);

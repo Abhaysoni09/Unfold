@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {Link} from "react-router-dom"
 import Addtocartbutton from "./Addtocartbutton";
+import { API_URL } from "../config/api";
 
 const Productview = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const Productview = () => {
   
   const fetchproducts=async()=>{
     try{
-      const res = await axios.get("http://localhost:3000/api/getproducts",{
+      const res = await axios.get(`${API_URL}/getproducts`,{
         withCredentials:true
       })
       console.log(res.data.products)
@@ -59,7 +60,7 @@ const Productview = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/products/${id}`,
+          `${API_URL}/products/${id}`,
         {
             withCredentials:true
         });

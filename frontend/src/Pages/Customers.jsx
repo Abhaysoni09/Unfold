@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search, Mail, Phone, ShoppingBag, Calendar } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 
 function Customers() {
@@ -13,7 +14,7 @@ function Customers() {
     const fetchCustomers = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:3000/api/customers`, {
+        const res = await axios.get(`${API_URL}/customers`, {
           withCredentials: true,
         });
         setCustomers(res.data.customers || []);

@@ -1,6 +1,7 @@
 import { Upload, X, Pencil, Trash2, Check } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 const Createbrand = () => {
   const fileInputRef = useRef(null);
@@ -20,7 +21,9 @@ const Createbrand = () => {
   const fetchBrands = async () => {
     try {
       setFetching(true);
-      const res = await axios.get(`http://localhost:3000/api/brands`);
+      const res = await axios.get(`${API_URL}/brands`,{
+        withCredentials:true
+      });
       setBrands(res.data.brands || []);
     } catch (err) {
       console.log(err.response?.data || err);
@@ -69,7 +72,9 @@ const Createbrand = () => {
 
     try {
       setLoading(true);
-      await axios.post(`http://localhost:3000/api/brands`, formData);
+      await axios.post(`${API_URL}/brands`, formData,{
+        withCredentials:true
+      });
       resetForm();
       fetchBrands();
     } catch (err) {
@@ -82,8 +87,10 @@ const Createbrand = () => {
 
   const toggleStatus = async (brand) => {
     try {
-      await axios.patch(`http://localhost:3000/api/brands/${brand._id}`, {
+      await axios.patch(`${API_URL}/brands/${brand._id}`,{
         status: !brand.status,
+      }, {
+        withCredentials:true
       });
       setBrands((prev) =>
         prev.map((b) =>
@@ -98,7 +105,9 @@ const Createbrand = () => {
   const deleteBrand = async (id) => {
     if (!window.confirm("Delete this brand? This cannot be undone.")) return;
     try {
-      await axios.delete(`http://localhost:3000/api/brands/${id}`);
+      await axios.delete(`${API_URL}/brands/${id}`,{
+        withCredentials:true
+      });
       setBrands((prev) => prev.filter((b) => b._id !== id));
     } catch (err) {
       console.log(err.response?.data || err);

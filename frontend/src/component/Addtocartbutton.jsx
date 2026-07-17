@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { API_URL } from "../config/api";
 const Addtocartbutton = ({productId}) => {
 
 
@@ -8,7 +8,7 @@ const Addtocartbutton = ({productId}) => {
     try{
 
       await axios.post(
-        "http://localhost:3000/api/cart",
+        `${API_URL}/cart`,
         {
           productId,
           quantity:1

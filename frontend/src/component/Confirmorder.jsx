@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { CheckCircle2, Package, MapPin, Truck } from "lucide-react";
 import axios from "axios";
+import { API_URL } from "../config/api";
 
 const Confirmorder = () => {
   const { id } = useParams();
@@ -14,10 +15,9 @@ const Confirmorder = () => {
     const fetchOrder = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:3000/api/order/${id}`, {
+        const res = await axios.get(`${API_URL}/order/${id}`, {
           withCredentials: true,
         });
-        console.log(res.data.order)
         setOrder(res.data.order);
       } catch (err) {
         console.log(err.response?.data || err);
