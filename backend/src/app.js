@@ -8,9 +8,12 @@ const app = express()
 app.use(express.json())
 app.use(cookieparser())
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173",
+        "https://unfold-rose.vercel.app"
+    ],
     credentials: true
-}))
+}));
 
 app.use("/api/auth", authroute)
 app.use("/api",productroute)
