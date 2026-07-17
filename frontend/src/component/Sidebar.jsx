@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { API_URL } from "../config/api";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/Authcontext";
+import { useAuth } from "../context/AuthContext";
 const menuItems = [
   {
     title: "Dashboard",

@@ -1,4 +1,4 @@
-import { useAuth } from "../context/Authcontext";
+import { useAuth } from "../context/AuthContext";
 import {Users,ShoppingCart} from "lucide-react"
 import { Link } from "react-router-dom";
 

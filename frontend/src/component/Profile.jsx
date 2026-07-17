@@ -13,7 +13,7 @@ import {
   Calendar,
 } from "lucide-react";
 import axios from "axios";
-import { useAuth } from "../context/Authcontext";
+import { useAuth } from "../context/AuthContext";
 import { API_URL } from "../config/api";
 
 const Profile = () => {
