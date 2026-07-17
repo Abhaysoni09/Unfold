@@ -26,8 +26,8 @@ async function register(req,res){
     const token = jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{expiresIn:"1d"})
     res.cookie("token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(201).json({
@@ -57,11 +57,11 @@ async function login(req,res){
     }
     const token = jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{expiresIn:"1d"})
     res.cookie("token", token, {
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax",
-  maxAge: 24 * 60 * 60 * 1000,
-});
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 24 * 60 * 60 * 1000,
+    });
     res.status(200).json({
   message: "Login Successfully",
   user: user,
@@ -83,9 +83,9 @@ function me(req, res){
 function logout(req,res){
     try {
         res.clearCookie("token", {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         });
         return res.status(200).json({
             message:"Logout Successful"
