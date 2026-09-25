@@ -46,6 +46,7 @@ import Customers from "./Pages/Customers";
 import Nav from "./component/Nav";
 import Footer from "./component/Footer";
 import About from "./component/About";
+import Wishlist from "./Pages/Wishlist";
 
 
 function AppRoutes() {
@@ -68,6 +69,7 @@ function AppRoutes() {
         <Route path="/orders" element={<Allorder />} />
         <Route path="/products" element={<Allproduct />} />
         <Route path="/about" element={<About/>} />
+        <Route path="/wishlist" element={<Wishlist/>} />
 
         <Route path="/seller" element={<Adminlayout />}>
           <Route index element={<Dashboard />} />

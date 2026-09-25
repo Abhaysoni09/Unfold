@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-import {Users,ShoppingCart} from "lucide-react"
+import {Users,ShoppingCart,Heart} from "lucide-react"
 import { Link } from "react-router-dom";
 
 const Nav = () => {
@@ -39,7 +39,11 @@ const Nav = () => {
       </a>
       </Link>
     </nav>
+    
     <div className="flex gap-3">
+      <Link to="/wishlist">
+    <Heart/>
+</Link>
       <Link
       to="/cart"
       className="px-3"

@@ -35,7 +35,16 @@ const userSchema = new mongoose.Schema({
     isverified:{
         type:Boolean,
         default:false
-    }
+    },
+    wishlist: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
+]
 },{timestamps:true})
 
-module.exports = mongoose.model("User", userSchema)
+const User =
+  mongoose.models.User || mongoose.model("User", userSchema);
+
+module.exports = User;

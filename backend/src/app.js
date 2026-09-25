@@ -3,6 +3,7 @@ const authroute = require("./Routes/auth.routes")
 const productroute = require("./Routes/product.routes")
 const cookieparser = require("cookie-parser")
 const cors = require("cors")
+const wishlistRoutes = require("../src/Routes/wishlistRoute")
 
 const app = express()
 app.use(express.json())
@@ -17,5 +18,6 @@ app.use(cors({
 
 app.use("/api/auth", authroute)
 app.use("/api",productroute)
+app.use("/api/wishlist", wishlistRoutes);
 
 module.exports = app
